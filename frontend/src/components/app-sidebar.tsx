@@ -4,7 +4,6 @@ import {
   FileText,
   Users,
   FilePlus,
-  History,
   Settings,
   Search,
   HelpCircle,
@@ -24,17 +23,16 @@ import {
 import { NavUser } from "@/components/nav-user"
 
 const navMain = [
-  { title: "Dashboard", url: "/dashboard", icon: LayoutDashboard },
-  { title: "Templates", url: "/templates", icon: FileText },
+  { title: "Dashboard",  url: "/dashboard",  icon: LayoutDashboard },
+  { title: "Templates",  url: "/templates",  icon: FileText },
   { title: "Candidates", url: "/candidates", icon: Users },
-  { title: "Offers", url: "/offers", icon: FilePlus },
-  { title: "Offer History", url: "/offers/history", icon: History },
+  { title: "Offers",     url: "/offers",     icon: FilePlus },
 ]
 
 const navSecondary = [
   { title: "Settings", url: "/settings", icon: Settings },
-  { title: "Get Help", url: "/help", icon: HelpCircle },
-  { title: "Search", url: "/search", icon: Search },
+  { title: "Get Help", url: "/help",     icon: HelpCircle },
+  { title: "Search",   url: "/search",   icon: Search },
 ]
 
 export function AppSidebar() {
@@ -45,8 +43,6 @@ export function AppSidebar() {
     backgroundColor: 'var(--primary)',
     color: 'var(--primary-foreground)',
   }
-
-  const inactiveStyle = {}
 
   return (
     <Sidebar>
@@ -72,11 +68,7 @@ export function AppSidebar() {
                   <SidebarMenuButton
                     isActive={location.pathname === item.url}
                     onClick={() => navigate(item.url)}
-                    style={
-                      location.pathname === item.url
-                        ? activeStyle
-                        : inactiveStyle
-                    }
+                    style={location.pathname === item.url ? activeStyle : {}}
                   >
                     <item.icon />
                     <span>{item.title}</span>
@@ -97,11 +89,7 @@ export function AppSidebar() {
                   <SidebarMenuButton
                     isActive={location.pathname === item.url}
                     onClick={() => navigate(item.url)}
-                    style={
-                      location.pathname === item.url
-                        ? activeStyle
-                        : inactiveStyle
-                    }
+                    style={location.pathname === item.url ? activeStyle : {}}
                   >
                     <item.icon />
                     <span>{item.title}</span>

@@ -22,6 +22,8 @@ app.use('/api/auth', authRoutes)
 app.use('/api/dashboard', dashboardRoutes)
 app.use('/api/candidates', candidateRoutes)
 app.use("/api/templates", templateRoutes)
+const offerRoutes = require('./routes/offer.routes')
+app.use('/api/offers', offerRoutes)
 
 pool.query('SELECT NOW()', (err, result) => {
   if (err) {

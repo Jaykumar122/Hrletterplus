@@ -135,7 +135,7 @@ const updateTemplate = async (req, res) => {
     const result = await pool.query(
       `UPDATE templates
        SET name = $1, body_html = $2, placeholders_json = $3::jsonb,
-           version = $4, updated_at = NOW()
+           version = $4
        WHERE id = $5
        RETURNING *`,
       [name.trim(), body_html, JSON.stringify(detectedPlaceholders), newVersion, id]
@@ -157,7 +157,7 @@ const deleteTemplate = async (req, res) => {
   try {
     const { id } = req.params;
     const result = await pool.query(
-      "UPDATE templates SET is_active = false, updated_at = NOW() WHERE id = $1 RETURNING id",
+      "UPDATE templates SET is_active = false WHERE id = $1 RETURNING id",
       [id]
     );
     if (result.rows.length === 0)
