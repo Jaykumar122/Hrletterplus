@@ -33,7 +33,7 @@ screeen shot
 # 📁 Project Structure
 
 ```bash
-HireItPlus/
+HrlettertPlus/
 │
 ├── backend/
 │   ├── config/
@@ -118,7 +118,7 @@ VITE_API_URL=http://localhost:5000
 
 ```bash
 git clone https://github.com/Jaykumar122/Hrletterplus.git
-cd HireItPlus
+cd HrletterPlus
 ```
 
 ---
