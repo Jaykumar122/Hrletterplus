@@ -5,6 +5,7 @@ import Dashboard from './pages/dashboard/dashboard'
 import ProtectedRoute from './components/auth/ProtectedRoute'
 import { ThemeProvider } from './components/theme-provider'
 import Candidates from './pages/candidates/Candidates'
+import TemplatesPage from './pages/Templates/Templates'
 
 function App() {
   return (
@@ -22,7 +23,7 @@ function App() {
         } />
         <Route path="/templates" element={
           <ProtectedRoute>
-            <div>Templates Page Coming Soon</div>
+            <TemplatesPage />
           </ProtectedRoute>
         } />
         <Route path="/candidates" element={

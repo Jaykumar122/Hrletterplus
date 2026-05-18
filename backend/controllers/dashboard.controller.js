@@ -5,10 +5,10 @@ const getDashboardStats = async (req, res) => {
   try {
     const stats = await pool.query(`
       SELECT 
-        COUNT(*) FILTER (WHERE status = 'Draft') AS drafts,
-        COUNT(*) FILTER (WHERE status = 'Sent') AS sent,
-        COUNT(*) FILTER (WHERE status = 'Accepted') AS accepted,
-        COUNT(*) FILTER (WHERE status = 'Rejected') AS rejected,
+        COUNT(CASE WHEN status = 'Draft' THEN 1 END) AS drafts,
+        COUNT(CASE WHEN status = 'Sent' THEN 1 END) AS sent,
+        COUNT(CASE WHEN status = 'Accepted' THEN 1 END) AS accepted,
+        COUNT(CASE WHEN status = 'Rejected' THEN 1 END) AS rejected,
         COUNT(*) AS total
       FROM offers
     `)
@@ -56,23 +56,23 @@ const getOffersChart = async (req, res) => {
   try {
     const { range = '3months' } = req.query
 
-    let interval = "3 months"
-    if (range === '30days') interval = "30 days"
-    if (range === '7days') interval = "7 days"
+    let days = 90
+    if (range === '30days') days = 30
+    if (range === '7days') days = 7
 
     const result = await pool.query(`
       SELECT 
         DATE(created_at) AS date,
-        COUNT(*) FILTER (WHERE status = 'Draft') AS draft,
-        COUNT(*) FILTER (WHERE status = 'Sent') AS sent,
-        COUNT(*) FILTER (WHERE status = 'Accepted') AS accepted,
-        COUNT(*) FILTER (WHERE status = 'Rejected') AS rejected,
+        COUNT(CASE WHEN status = 'Draft' THEN 1 END) AS draft,
+        COUNT(CASE WHEN status = 'Sent' THEN 1 END) AS sent,
+        COUNT(CASE WHEN status = 'Accepted' THEN 1 END) AS accepted,
+        COUNT(CASE WHEN status = 'Rejected' THEN 1 END) AS rejected,
         COUNT(*) AS total
       FROM offers
-      WHERE created_at >= NOW() - INTERVAL '${interval}'
+      WHERE created_at >= NOW() - INTERVAL '1 day' * $1
       GROUP BY DATE(created_at)
       ORDER BY date ASC
-    `)
+    `, [days])
 
     res.json(result.rows)
   } catch (error) {

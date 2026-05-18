@@ -3,6 +3,7 @@ import {
   Table, TableBody, TableCell, TableHead, TableHeader, TableRow
 } from "@/components/ui/table"
 import { Badge } from "@/components/ui/badge"
+import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 
 interface Activity {
   id: number
@@ -15,15 +16,29 @@ interface Activity {
 
 export function DataTable() {
   const [activity, setActivity] = useState<Activity[]>([])
+  const [error, setError] = useState<string>('')
 
   useEffect(() => {
     const token = localStorage.getItem('token')
+    if (!token) {
+      setError('No authentication token found')
+      return
+    }
+
     fetch(`${import.meta.env.VITE_API_URL}/api/dashboard/activity`, {
       headers: { Authorization: `Bearer ${token}` }
     })
-      .then(res => res.json())
-      .then(data => setActivity(data))
-      .catch(err => console.log(err))
+      .then(res => {
+        if (!res.ok) {
+          throw new Error(`API returned status ${res.status}`)
+        }
+        return res.json()
+      })
+      .then(data => setActivity(data || []))
+      .catch(err => {
+        console.error('Error fetching activity:', err)
+        setError(err.message)
+      })
   }, [])
 
   const statusColor = (status: string) => {
@@ -31,6 +46,19 @@ export function DataTable() {
     if (status === 'Rejected') return 'text-red-600'
     if (status === 'Sent') return 'text-blue-600'
     return 'text-purple-600'
+  }
+
+  if (error) {
+    return (
+      <div className="px-4 lg:px-6">
+        <Card className="border-red-200 bg-red-50">
+          <CardHeader>
+            <CardTitle className="text-red-600">Error Loading Activity</CardTitle>
+            <CardDescription className="text-red-600">{error}</CardDescription>
+          </CardHeader>
+        </Card>
+      </div>
+    )
   }
 
   return (

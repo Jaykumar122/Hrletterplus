@@ -13,21 +13,36 @@ interface Stats {
   sent: number
   accepted: number
   rejected: number
+  total?: number
 }
 
 export function SectionCards() {
   const [stats, setStats] = useState<Stats>({
-    drafts: 0, sent: 0, accepted: 0, rejected: 0
+    drafts: 0, sent: 0, accepted: 0, rejected: 0, total: 0
   })
+  const [error, setError] = useState<string>('')
 
   useEffect(() => {
     const token = localStorage.getItem('token')
+    if (!token) {
+      setError('No authentication token found')
+      return
+    }
+
     fetch(`${import.meta.env.VITE_API_URL}/api/dashboard/stats`, {
       headers: { Authorization: `Bearer ${token}` }
     })
-      .then(res => res.json())
+      .then(res => {
+        if (!res.ok) {
+          throw new Error(`API returned status ${res.status}`)
+        }
+        return res.json()
+      })
       .then(data => setStats(data))
-      .catch(err => console.log(err))
+      .catch(err => {
+        console.error('Error fetching dashboard stats:', err)
+        setError(err.message)
+      })
   }, [])
 
   const cards = [
@@ -56,6 +71,19 @@ export function SectionCards() {
       description: 'Candidates rejected offers',
     },
   ]
+
+  if (error) {
+    return (
+      <div className="px-4 lg:px-6 py-4">
+        <Card className="border-red-200 bg-red-50">
+          <CardHeader>
+            <CardTitle className="text-red-600">Error Loading Dashboard</CardTitle>
+            <CardDescription className="text-red-600">{error}</CardDescription>
+          </CardHeader>
+        </Card>
+      </div>
+    )
+  }
 
   return (
     <div className="*:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card dark:*:data-[slot=card]:from-primary/10 grid grid-cols-1 gap-4 px-4 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:shadow-xs lg:px-6 @xl/main:grid-cols-2 @5xl/main:grid-cols-4">

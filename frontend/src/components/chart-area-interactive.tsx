@@ -44,6 +44,7 @@ export function ChartAreaInteractive() {
   const isMobile = useIsMobile()
   const [timeRange, setTimeRange] = React.useState("90d")
   const [chartData, setChartData] = React.useState([])
+  const [error, setError] = React.useState<string>('')
 
   React.useEffect(() => {
     if (isMobile) {
@@ -58,6 +59,11 @@ export function ChartAreaInteractive() {
   const fetchChartData = async () => {
     try {
       const token = localStorage.getItem('token')
+      if (!token) {
+        setError('No authentication token found')
+        return
+      }
+
       let range = '3months'
       if (timeRange === '30d') range = '30days'
       if (timeRange === '7d') range = '7days'
@@ -66,10 +72,17 @@ export function ChartAreaInteractive() {
         `${import.meta.env.VITE_API_URL}/api/dashboard/chart?range=${range}`,
         { headers: { Authorization: `Bearer ${token}` } }
       )
+
+      if (!res.ok) {
+        throw new Error(`API returned status ${res.status}`)
+      }
+
       const data = await res.json()
-      setChartData(data)
+      setChartData(data || [])
+      setError('')
     } catch (error) {
-      console.log('Chart fetch error:', error)
+      console.error('Chart fetch error:', error)
+      setError(error instanceof Error ? error.message : 'Failed to load chart data')
     }
   }
 
@@ -118,7 +131,14 @@ export function ChartAreaInteractive() {
         </CardAction>
       </CardHeader>
       <CardContent className="px-2 pt-4 sm:px-6 sm:pt-6">
-        {chartData.length === 0 ? (
+        {error ? (
+          <div className="flex items-center justify-center h-[250px] text-red-600 text-sm border border-red-200 rounded bg-red-50">
+            <div className="text-center">
+              <p className="font-semibold">Error loading chart</p>
+              <p className="text-xs mt-1">{error}</p>
+            </div>
+          </div>
+        ) : chartData.length === 0 ? (
           <div className="flex items-center justify-center h-[250px] text-muted-foreground text-sm">
             No offer data available for this period
           </div>

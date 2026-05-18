@@ -6,6 +6,9 @@ const pool = require('./config/db')
 const authRoutes = require('./routes/auth.routes')
 const dashboardRoutes = require('./routes/dashboard.routes')
 const candidateRoutes = require('./routes/candidate.routes')
+const templateRoutes = require("./routes/Template.routes");
+
+
 const app = express()
 
 app.use(cors({
@@ -18,6 +21,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use('/api/auth', authRoutes)
 app.use('/api/dashboard', dashboardRoutes)
 app.use('/api/candidates', candidateRoutes)
+app.use("/api/templates", templateRoutes)
 
 pool.query('SELECT NOW()', (err, result) => {
   if (err) {
