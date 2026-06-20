@@ -128,7 +128,7 @@ cd HrletterPlus
 ```bash
 cd backend
 npm install
-npm run dev
+node index.js
 ```
 
 Backend runs on:
