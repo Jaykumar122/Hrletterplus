@@ -1,9 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import {
-  BadgeCheck,
-  Bell,
   ChevronsUpDown,
-  CreditCard,
   LogOut,
 } from "lucide-react"
 import {

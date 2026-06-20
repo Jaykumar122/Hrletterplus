@@ -94,12 +94,12 @@ const createOffer = async (req, res) => {
     // Substitute placeholders
     let generated_html = template.body_html
     generated_html = generated_html.replace(/\{\{name\}\}/g, candidate.full_name)
-    generated_html = generated_html.replace(/\{\{designation\}\}/g, candidate.designation || '')
-    generated_html = generated_html.replace(/\{\{salary\}\}/g, salary)
-    generated_html = generated_html.replace(/\{\{doj\}\}/g, new Date(joining_date).toLocaleDateString())
-    generated_html = generated_html.replace(/\{\{department\}\}/g, candidate.department || '')
-    generated_html = generated_html.replace(/\{\{email\}\}/g, candidate.email || '')
-    generated_html = generated_html.replace(/\{\{phone\}\}/g, candidate.phone || '')
+generated_html = generated_html.replace(/\{\{designation\}\}/g, candidate.designation || '')
+generated_html = generated_html.replace(/\{\{doj\}\}/g, new Date(joining_date).toLocaleDateString('en-IN'))
+generated_html = generated_html.replace(/\{\{department\}\}/g, candidate.department || '')
+generated_html = generated_html.replace(/\{\{email\}\}/g, candidate.email || '')
+generated_html = generated_html.replace(/\{\{phone\}\}/g, candidate.phone || '')
+generated_html = generated_html.replace(/\{\{company\}\}/g, 'HrLetterPlus')
 
     // Create offer
     const result = await pool.query(`

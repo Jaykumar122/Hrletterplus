@@ -6,15 +6,6 @@ import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar'
 import { Button } from '@/components/ui/button'
 import { ArrowLeft, CheckCircle2, XCircle, Send } from 'lucide-react'
 
-interface StatusLog {
-  id: number
-  from_status: string
-  to_status: string
-  changed_by: number
-  changed_at: string
-  remark: string
-}
-
 interface Offer {
   id: number
   candidate_name: string
@@ -25,7 +16,6 @@ export default function OfferStatus() {
   const { id } = useParams()
   const navigate = useNavigate()
   const [offer, setOffer] = useState<Offer | null>(null)
-  const [logs, setLogs] = useState<StatusLog[]>([])
   const [remark, setRemark] = useState('')
   const [updating, setUpdating] = useState(false)
   const [error, setError] = useState('')
@@ -33,7 +23,6 @@ export default function OfferStatus() {
 
   useEffect(() => {
     fetchOffer()
-    fetchLogs()
   }, [id])
 
   const fetchOffer = async () => {
@@ -42,12 +31,6 @@ export default function OfferStatus() {
     })
     const data = await res.json()
     setOffer(data)
-  }
-
-  const fetchLogs = async () => {
-    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/offers/${id}/history`, {
-      headers: { Authorization: `Bearer ${token}` }
-    })
   }
 
   const updateStatus = async (newStatus: string) => {

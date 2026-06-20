@@ -9,8 +9,11 @@ import TemplatesPage from './pages/Templates/Templates'
 import Offers from './pages/Offers/offers'
 import NewOffer from './pages/Offers/NewOffer'
 import OfferDetail from './pages/Offers/offerDetail'
-import OfferHistory from './pages/Offers/OfferHistory'
+import OfferHistory from './pages/Offers/offerHistory'
 import OfferStatus from './pages/Offers/offerStatus'
+import SettingsPage from './pages/settings/Settings'
+import SearchPage from './pages/search/Search'
+import HelpPage from './pages/help/Help'
 
 function App() {
   return (
@@ -27,6 +30,15 @@ function App() {
         } />
         <Route path="/candidates" element={
           <ProtectedRoute><Candidates /></ProtectedRoute>
+        } />
+        <Route path="/settings" element={
+          <ProtectedRoute><SettingsPage /></ProtectedRoute>
+        } />
+        <Route path="/search" element={
+          <ProtectedRoute><SearchPage /></ProtectedRoute>
+        } />
+        <Route path="/help" element={
+          <ProtectedRoute><HelpPage /></ProtectedRoute>
         } />
 
         {/* Offers — specific routes MUST come before /:id */}

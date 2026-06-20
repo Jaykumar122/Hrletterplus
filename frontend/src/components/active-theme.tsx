@@ -1,10 +1,10 @@
 import {
-  ReactNode,
   createContext,
   useContext,
   useEffect,
   useState,
 } from "react";
+import type { ReactNode } from "react";
 
 const COOKIE_NAME = "active_theme";
 const DEFAULT_THEME = "default";

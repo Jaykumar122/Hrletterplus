@@ -1,7 +1,6 @@
-import { TrendingUp } from "lucide-react"
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid,
-  Tooltip, ResponsiveContainer, LineChart, Line
+  Tooltip, ResponsiveContainer
 } from "recharts"
 import {
   Card, CardContent, CardDescription,
