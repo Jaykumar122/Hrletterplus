@@ -10,15 +10,23 @@
 
 HrLetterPlus streamlines the entire HR workflow—from candidate tracking through offer generation to employee onboarding—with an intuitive, modern interface and powerful backend APIs.
 ## 📸 Screenshots
+### Login
+<img width="1376" height="739" alt="login" src="https://github.com/user-attachments/assets/fd455133-a6c0-4544-832f-0cecaa04ffae" />
 
 ### Dashboard
-![Dashboard Overview](C:\Users\singh\Downloads\dash.png)
+<img width="1618" height="870" alt="dash" src="https://github.com/user-attachments/assets/aa2e18eb-2874-40ea-bc6d-4a16d2ac7afd" />
+
 
 ### Candidate Management
-![Candidate List](C:\Users\singh\Downloads\Screenshot 2026-06-20 215430.png)
+<img width="1616" height="868" alt="Screenshot 2026-06-20 215430" src="https://github.com/user-attachments/assets/57e81daa-07d5-486a-8c4b-5a2e6038bc97" />
+
+
+
 
 ### Offer Generation
-![Offer Creation](C:\Users\singh\Downloads\Screenshot 2026-06-20 215441.png)
+<img width="1616" height="868" alt="Screenshot 2026-06-20 215441" src="https://github.com/user-attachments/assets/8d577233-4070-4e72-8701-198cdeca2905" />
+
+
 ### 🎯 Core Components
 
 - **Frontend**: React 19 + TypeScript + Vite for rapid, type-safe development
