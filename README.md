@@ -12,13 +12,13 @@ HrLetterPlus streamlines the entire HR workflow—from candidate tracking throug
 ## 📸 Screenshots
 
 ### Dashboard
-![Dashboard Overview]("C:\Users\singh\Downloads\dash.png")
+![Dashboard Overview](C:\Users\singh\Downloads\dash.png)
 
 ### Candidate Management
-![Candidate List]("C:\Users\singh\Downloads\Screenshot 2026-06-20 215430.png")
+![Candidate List](C:\Users\singh\Downloads\Screenshot 2026-06-20 215430.png)
 
 ### Offer Generation
-![Offer Creation]("C:\Users\singh\Downloads\Screenshot 2026-06-20 215441.png")
+![Offer Creation](C:\Users\singh\Downloads\Screenshot 2026-06-20 215441.png)
 ### 🎯 Core Components
 
 - **Frontend**: React 19 + TypeScript + Vite for rapid, type-safe development
